@@ -75,5 +75,28 @@ class CalculatorTest {
                 () -> minuend + "-" + subtrahend + " did not produce " + expectedResult);
     }
 
+    @Test
+    void testSquareRoot_whenNumberBelowZero_ShouldThrowIllegalArgException(){
+        //Arrange
+        double number = -10.0;
+
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> {
+        //Act
+            double squareRoot = calculator.squareRoot(number);
+        });
+
+        //Assertion
+        assertEquals(illegalArgumentException.getClass(), IllegalArgumentException.class);
+    }
+
+    @Test
+    void testSquareRoot_whenNumberIsNormal_ShouldProvideCalculation() throws IllegalAccessException {
+        double number = 100;
+
+        double squareRoot = calculator.squareRoot(number);
+
+        assertEquals(10, squareRoot);
+    }
+
 
 }
