@@ -27,11 +27,15 @@ class CalculatorTest {
     @DisplayName("Test 10 - 2 = 8")
     @Test
     void integerSubtraction() {
+        // AAA
+        // Arrange(Given) -> Act(When) -> Assert(Then)
         Calculator calculator = new Calculator();
         int subtrahend = 2;
         int minuend = 10;
         int expectedResult = 8;
+
         int actualResult = calculator.subtraction(minuend, subtrahend);
+
         assertEquals(expectedResult, actualResult,
                 () -> minuend + "-" + subtrahend + " did not produce " + expectedResult);
     }
