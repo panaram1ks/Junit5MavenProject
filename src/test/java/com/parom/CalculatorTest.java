@@ -2,8 +2,7 @@ package com.parom;
 
 import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Test Math operations in Calculator class")
 class CalculatorTest {
@@ -11,23 +10,23 @@ class CalculatorTest {
     Calculator calculator;
 
     @BeforeAll
-    static void setup(){
+    static void setup() {
         System.out.println("Execute before All method");
     }
 
     @AfterAll
-    static void cleanup(){
+    static void cleanup() {
         System.out.println("Execute After all method");
     }
 
     @BeforeEach
-    void beforeEachTestMethod(){
+    void beforeEachTestMethod() {
         System.out.println("Execute Before Each method");
         this.calculator = new Calculator();
     }
 
     @AfterEach
-    void afterEachTestMethod(){
+    void afterEachTestMethod() {
         System.out.println("Execute After Each method");
     }
 
@@ -39,11 +38,25 @@ class CalculatorTest {
         assertEquals(2, result, "Division did not produce expected result, 4 / 2 did not produce 2");
     }
 
-    @Disabled
+    //    @Disabled
     @DisplayName("Division by zero")
     @Test
-    void testIntegerDivision_WhenDividendIsDividedByZero_ShouldThrowArithmeticException(){
-        fail("Not implemented yet");
+    void testIntegerDivision_WhenDividendIsDividedByZero_ShouldThrowArithmeticException() {
+        // fail("Not implemented yet");
+        // Arrange
+        int dividend = 4;
+        int divisor = 0;
+        String expectedExceptionMessage = "/ by zero";
+//      // Act
+//      int result = calculator.integerDivision(dividend, divisor);
+        ArithmeticException arithmeticException = assertThrows(ArithmeticException.class, () -> {    // Act
+                    int result = calculator.integerDivision(dividend, divisor);
+                },
+                "Division by zero should have thrown an Arithmetic exception.");
+
+        // Assert
+        assertEquals(expectedExceptionMessage, arithmeticException.getMessage());
+
     }
 
     // TODO: Create a new JUnit Test method for integerSubtraction method.
@@ -61,7 +74,6 @@ class CalculatorTest {
         assertEquals(expectedResult, actualResult,
                 () -> minuend + "-" + subtrahend + " did not produce " + expectedResult);
     }
-
 
 
 }
