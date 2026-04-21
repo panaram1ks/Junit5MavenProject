@@ -3,6 +3,7 @@ package com.parom;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -135,6 +136,13 @@ class CalculatorTest {
             "apple,"    // second parameter will be null
     })
     void stringSubtractionCSV(String firstLine, String secondLine) {
+        assertEquals("apple", firstLine);
+    }
+
+    @DisplayName("CSV string parameters in File")
+    @ParameterizedTest
+    @CsvFileSource(resources = "/stringSubtractionCSVfile.csv")
+    void stringSubtractionCSVfile(String firstLine, String secondLine) {
         assertEquals("apple", firstLine);
     }
 
