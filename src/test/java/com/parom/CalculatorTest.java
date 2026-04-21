@@ -3,6 +3,7 @@ package com.parom;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
@@ -110,6 +111,31 @@ class CalculatorTest {
         double squareRoot = calculator.squareRoot(number);
 
         assertEquals(10, squareRoot);
+    }
+
+    @DisplayName("CSV integer parameters")
+    @ParameterizedTest
+    @CsvSource({
+            "33,1,32",
+            "22,20,2",
+            "99,90,9",
+    })
+    void integerSubtractionCSV(int minuend, int subtrahend, int expectedResult) {
+        int actualResult = calculator.subtraction(minuend, subtrahend);
+
+        assertEquals(expectedResult, actualResult,
+                () -> minuend + "-" + subtrahend + " did not produce " + expectedResult);
+    }
+
+    @DisplayName("CSV string parameters")
+    @ParameterizedTest
+    @CsvSource({
+            "apple, orange",
+            "apple, ''", // second parameter is empty string
+            "apple,"    // second parameter will be null
+    })
+    void stringSubtractionCSV(String firstLine, String secondLine) {
+        assertEquals("apple", firstLine);
     }
 
 
