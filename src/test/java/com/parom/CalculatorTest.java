@@ -1,6 +1,11 @@
 package com.parom;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -60,14 +65,15 @@ class CalculatorTest {
     }
 
     // TODO: Create a new JUnit Test method for integerSubtraction method.
-    @DisplayName("Test 10 - 2 = 8")
-    @Test
-    void integerSubtraction() {
+    @DisplayName("Test integer subtraction [minuend, subtrahend, expectedResult]")
+    @ParameterizedTest
+    @MethodSource()
+    void integerSubtraction(int minuend, int subtrahend, int expectedResult) {
         // AAA
         // Arrange(Given) -> Act(When) -> Assert(Then)
-        int subtrahend = 2;
-        int minuend = 10;
-        int expectedResult = 8;
+//        int subtrahend = 2;
+//        int minuend = 10;
+//        int expectedResult = 8;
 
         int actualResult = calculator.subtraction(minuend, subtrahend);
 
@@ -75,13 +81,21 @@ class CalculatorTest {
                 () -> minuend + "-" + subtrahend + " did not produce " + expectedResult);
     }
 
+    private static Stream<Arguments> integerSubtraction() {
+        return Stream.of(
+                Arguments.of(33, 1, 32),
+                Arguments.of(10, 2, 8),
+                Arguments.of(22, 21, 1)
+        );
+    }
+
     @Test
-    void testSquareRoot_whenNumberBelowZero_ShouldThrowIllegalArgException(){
+    void testSquareRoot_whenNumberBelowZero_ShouldThrowIllegalArgException() {
         //Arrange
         double number = -10.0;
 
         IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> {
-        //Act
+            //Act
             double squareRoot = calculator.squareRoot(number);
         });
 
